@@ -71,5 +71,3 @@ traditional structure - feature 'internal' and 'pkg' folder which encapsulate so
 - ngrok : public urls for exposing local web server (global install)
 	- npm install ngrok -g
 	- ngrok http $service_port
-- swagger
-	- brew install go-swagger
