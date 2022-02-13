@@ -1,4 +1,4 @@
-package messaging
+package service
 
 import (
 	handler "avah/common/http"

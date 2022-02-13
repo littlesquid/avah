@@ -8,7 +8,4 @@ line:
         push: https://api.line.me/v2/bot/message/push
 google:
   sheet:
-    uri: https://docs.google.com/spreadsheets/d/e/2PACX-1vRxMEfubPsRUBIULVx5a_YuTHD-8jFAsD9vQ9P3RZpxLSwckCmuc-GZ92KLHNekAHCSGP5-34HsIWAp/pub?output=csv
-    client:
-      id: 536094971010-t5vhj2jnua1e3v2sd7f5r5bc6756t4s2.apps.googleusercontent.com
-      secret: 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
+    oauth: https://www.googleapis.com/auth/spreadsheets

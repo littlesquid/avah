@@ -1,6 +1,8 @@
 package webhook
 
 import (
+	"avah/oauth"
+	service "avah/service/googleapi"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -18,4 +20,13 @@ func Reply(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("got request: %s \n", string(requestBody[:]))
+
+	googleApiClient := oauth.GoogleApiLogin()
+
+	googleApiService := service.GoogleSheetService{}
+	googleApiService.ConnectGoogleSheet(googleApiClient)
+
+	sheetData := googleApiService.ReadGoogleSheet()
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf("%v", sheetData)))
 }

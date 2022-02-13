@@ -1,4 +1,4 @@
-package messaging
+package oauth
 
 import (
 	handler "avah/common/http"
