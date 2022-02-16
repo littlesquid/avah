@@ -9,3 +9,7 @@ line:
 google:
   sheet:
     oauth: https://www.googleapis.com/auth/spreadsheets
+db:
+  redis:
+    host: localhost:6739
+    password: Welcome1

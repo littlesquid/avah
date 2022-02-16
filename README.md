@@ -71,3 +71,8 @@ traditional structure - feature 'internal' and 'pkg' folder which encapsulate so
 - ngrok : public urls for exposing local web server (global install)
 	- npm install ngrok -g
 	- ngrok http $service_port
+- redis
+- podman : container engine
+	- podman network create
+	- podman network ls
+	- podman run --net=$network -dt -p 6379:6379/tcp docker.io/bitnami/redis redis-server --requirepass $password

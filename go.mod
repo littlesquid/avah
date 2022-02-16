@@ -3,6 +3,7 @@ module avah
 go 1.17
 
 require (
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/robfig/cron v1.2.0
 	github.com/spf13/viper v1.10.1
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
@@ -20,6 +21,8 @@ require (
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
+	github.com/onsi/ginkgo v1.16.5 // indirect
+	github.com/onsi/gomega v1.18.1 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
