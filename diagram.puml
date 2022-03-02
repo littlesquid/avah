@@ -1,0 +1,87 @@
+@startuml Avah
+"User" -> "Line Platform": send message to register Avah service
+note left "Line Platform"
+    "keyword": "register"
+    "sheet_url": "public google sheet url"
+end note
+"Line Platform" -> "Avah": send a webhook event
+note left "Avah"
+    {
+    "destination": "xxxxxxxxxx",
+    "events": [
+        {
+        "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+        "type": "message",
+        "mode": "active",
+        "timestamp": 1462629479859,
+        "source": {
+            "type": "user",
+            "userId": "U4af4980629..."
+        },
+        "message": {
+            "id": "325708",
+            "type": "text",
+            "text": "@example Hello, world! (love)",
+            "emojis": [
+            {
+                "index": 23,
+                "length": 6,
+                "productId": "5ac1bfd5040ab15980c9b435",
+                "emojiId": "001"
+            }
+            ],
+            "mention": {
+            "mentionees": [
+                {
+                "index": 0,
+                "length": 8,
+                "userId": "U850014438e..."
+                }
+            ]
+            }
+        }
+        }
+    ]
+    }
+    https://developers.line.biz/en/reference/messaging-api/#message-event
+end note
+"Avah" -> "Avah": get source and sheet_url from webhook event (specific keyword) and save to DB
+note right "Avah"
+    table avah.sheet
+    id (number) : autonumber
+    source (varchar) : $source_id
+    sheet_url (varchar) : $sheet_url
+end note
+
+"Google Cloud Scheduler" -> "Google Cloud Scheduler": job triggered
+"Google Cloud Scheduler" -> "Avah": execute web hook
+"Avah" -> "Avah": find all from avah.sheet
+loop avah.sheet result
+"Avah" -> "Avah": read data from google sheet $avah.sheet.sheet_url
+"Avah" -> "Avah": mapping push message from sheet result
+"Avah" -> "Line Platform": send push message
+note right "Line Platform"
+request header 
+- 'Content-Type: application/json' 
+- 'Authorization: Bearer {channel access token}' 
+- 'X-Line-Retry-Key: {UUID}' 
+
+request body {
+    "to": "U4af4980629...",
+    "messages":[
+        {
+            "type":"text",
+            "text":"Hello, world1"
+        },
+        {
+            "type":"text",
+            "text":"Hello, world2"
+        }
+    ]
+}
+end note
+
+"Line Platform" -> "User": send push message
+end 
+
+@enduml

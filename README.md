@@ -9,8 +9,12 @@ practice go programming project from zero
 	 - go run .
  - run code with env var : 
 	 - $varName1 = $varValue1, $varName2 = $varValue2 go run .
-- add missing and remove unused modules
+- remove unused modules
 	- go mod tidy
+- compile package and dependencies
+	- go build
+- download and install dependencies
+	- go get
 
 ## Project Structure
 
