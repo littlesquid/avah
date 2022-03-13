@@ -5,7 +5,7 @@ const (
 	CONTENT_TYPE = "content-type"
 )
 
-//http body consttant
+//http body constant
 const (
 	GRANT_TYPE    = "grant_type"
 	CODE          = "code"
@@ -13,4 +13,5 @@ const (
 	CLIENT_ID     = "client_id"
 	CLIENT_SECRET = "client_secret"
 	ACCESS_TOKEN  = "access_token"
+	AUTHORIZATION = "Authorization"
 )

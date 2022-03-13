@@ -21,6 +21,16 @@ type DBConfig struct {
 	DB       *pg.DB
 }
 
+func (dbConfig *DBConfig) InitDbConfig() {
+	dbConfig.UserName = "root"
+	dbConfig.Password = "password"
+	dbConfig.Host = "localhost"
+	dbConfig.Port = "5432"
+	dbConfig.DbName = "avah"
+	dbConfig.Timeout = 20
+	dbConfig.SSLMode = "disabled"
+}
+
 func (dbConfig *DBConfig) OpenConnection() {
 	address := fmt.Sprintf("%s:%s", dbConfig.Host, dbConfig.Port)
 

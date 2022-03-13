@@ -16,3 +16,16 @@ func (repository *TaskRepository) Insert(taskModel *model.Task) {
 		fmt.Errorf("insert task failed: ", err)
 	}
 }
+
+func (repository *TaskRepository) FindAll() []model.Task {
+	fmt.Println("find all task")
+	var tasks []model.Task
+	err := repository.DBConfig.DB.Model(&tasks).Select()
+
+	if err != nil {
+		fmt.Errorf("insert task failed: ", err)
+		return nil
+	}
+
+	return tasks
+}

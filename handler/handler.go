@@ -3,6 +3,7 @@ package handler
 import (
 	adapter "avah/adapter/googleclient"
 	"avah/security"
+	job "avah/usecase/job"
 	webhook "avah/usecase/webhook/linebot"
 	"fmt"
 	"net/http"
@@ -14,6 +15,7 @@ func HandleRequests() {
 	http.HandleFunc("/reply", webhook.Reply)
 	http.HandleFunc("/callback", webhook.Callback)
 	http.HandleFunc("/health", healthCheck)
+	http.HandleFunc("/job", job.Run)
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {

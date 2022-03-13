@@ -2,8 +2,8 @@ package http
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -12,22 +12,29 @@ type HttpClient struct {
 	Url           string
 	RequestHeader map[string]string
 	RequestBody   []byte
-	ResponseBody  interface{}
+	ResponseBody  string
 }
 
-func (httpClient HttpClient) request() {
+func (httpClient *HttpClient) Request() {
+
+	fmt.Println("sending request to %v", httpClient.Url)
 
 	body := bytes.NewBuffer(httpClient.RequestBody)
 	req, err := http.NewRequest(httpClient.Method, httpClient.Url, body)
 
-	client := &http.Client{}
-	if err != nil {
-		log.Fatal(err)
+	for key, value := range httpClient.RequestHeader {
+		req.Header.Set(key, value)
 	}
+
+	if err != nil {
+		fmt.Errorf("create request failed: ", err)
+	}
+
+	client := &http.Client{}
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatalf("sending request to %v with exception %v", httpClient.Url, err)
+		fmt.Errorf("sending request to %v with exception %v", httpClient.Url, err)
 		return
 	}
 
@@ -35,8 +42,8 @@ func (httpClient HttpClient) request() {
 
 	responseBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Errorf("read response body failed: ", err)
 	}
 
-	httpClient.ResponseBody = responseBody
+	httpClient.ResponseBody = string(responseBody)
 }

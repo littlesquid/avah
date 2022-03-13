@@ -9,6 +9,7 @@ practice go programming project from zero
 	 - go run .
  - run code with env var : 
 	 - $varName1 = $varValue1, $varName2 = $varValue2 go run .
+	 - LINE_ACCESS_TOKEN=$lineAccessToken go run .
 - remove unused modules
 	- go mod tidy
 - compile package and dependencies
@@ -82,3 +83,5 @@ traditional structure - feature 'internal' and 'pkg' folder which encapsulate so
 	- podman run --net=$network -dt -p 6379:6379/tcp docker.io/bitnami/redis redis-server --requirepass $password
 - docker : 
 	- docker run --name postgresql --expose 5432 -p 5432:5432 -e POSTGRESQL_USERNAME=root -e POSTGRESQL_PASSWORD=password -e POSTGRESQL_DATABASE=avah bitnami/postgresql:latest
+- google cloud schduler: https://console.cloud.google.com/cloudscheduler/jobs
+	- create cloud scheduler with HTTP target type

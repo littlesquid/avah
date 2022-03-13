@@ -30,12 +30,12 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 
 	textMessage := strings.Split(lineWebHookRequest.Events[0].Message.Text, ":")
 	keyword := textMessage[0]
+	sheetId := textMessage[1]
 	source := lineWebHookRequest.Events[0].Source
 
 	if keyword == "#register" {
-		ExecuteRegister(textMessage, source)
+		ExecuteRegister(sheetId, source)
 	}
-
 }
 
 func Reply(w http.ResponseWriter, r *http.Request) {
