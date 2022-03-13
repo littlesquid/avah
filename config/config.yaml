@@ -10,6 +10,9 @@ google:
   sheet:
     oauth: https://www.googleapis.com/auth/spreadsheets
 db:
-  redis:
-    host: localhost:6739
-    password: Welcome1
+  postgres:
+    host: localhost:5432
+    port: 5432
+    username: root
+    password: password
+    name: avah
