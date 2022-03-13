@@ -1,4 +1,4 @@
-package oauth
+package adapter
 
 import (
 	handler "avah/common/http"

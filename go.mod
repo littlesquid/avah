@@ -3,11 +3,17 @@ module avah
 go 1.17
 
 require (
+	github.com/go-pg/pg v8.0.7+incompatible
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/robfig/cron v1.2.0
 	github.com/spf13/viper v1.10.1
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	google.golang.org/api v0.63.0
+)
+
+require (
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
+	mellium.im/sasl v0.2.1 // indirect
 )
 
 require (

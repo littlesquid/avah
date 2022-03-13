@@ -1,9 +1,8 @@
-package service
+package adapter
 
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"google.golang.org/api/option"
@@ -14,15 +13,16 @@ type GoogleSheetService struct {
 	srv *sheets.Service
 }
 
-func (sheetService *GoogleSheetService) ConnectGoogleSheet(client *http.Client) {
+func (sheetService *GoogleSheetService) ConnectGoogleSheet(client *http.Client) error {
 	ctx := context.Background()
 
 	srv, err := sheets.NewService(ctx, option.WithHTTPClient(client))
 	if err != nil {
-		log.Fatalf("Unable to retrieve Sheets client: %v", err)
+		return err
 	}
 
 	sheetService.srv = srv
+	return nil
 }
 
 func (sheetService *GoogleSheetService) ReadGoogleSheet(sheetId string, rangeData string) *sheets.ValueRange {

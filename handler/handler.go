@@ -1,10 +1,9 @@
 package handler
 
 import (
-	"avah/oauth"
+	adapter "avah/adapter/googleclient"
 	"avah/security"
-	service "avah/service/googleapi"
-	webhook "avah/webhook/linebot"
+	webhook "avah/usecase/webhook/linebot"
 	"fmt"
 	"net/http"
 
@@ -13,14 +12,15 @@ import (
 
 func HandleRequests() {
 	http.HandleFunc("/reply", webhook.Reply)
+	http.HandleFunc("/callback", webhook.Callback)
 	http.HandleFunc("/health", healthCheck)
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
 
-	googleApiClient := oauth.GoogleApiLogin()
+	googleApiClient := adapter.GoogleApiLogin()
 
-	googleApiService := service.GoogleSheetService{}
+	googleApiService := adapter.GoogleSheetService{}
 	googleApiService.ConnectGoogleSheet(googleApiClient)
 
 	spreadsheetId := viper.GetString("sheet.id")

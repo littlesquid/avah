@@ -1,4 +1,4 @@
-package service
+package adapter
 
 import (
 	handler "avah/common/http"

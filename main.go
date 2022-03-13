@@ -1,9 +1,10 @@
 package main
 
 import (
+	"net/http"
+
 	"avah/config"
 	"avah/handler"
-	"net/http"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-package webhook
+package model
 
 type LineWebHookRequest struct {
 	Destination string `json:"destination"`
@@ -9,12 +9,14 @@ type LineWebHookRequest struct {
 			ID   string `json:"id"`
 			Text string `json:"text"`
 		} `json:"message"`
-		Timestamp int64 `json:"timestamp"`
-		Source    struct {
-			Type   string `json:"type"`
-			UserID string `json:"userId"`
-		} `json:"source"`
+		Timestamp  int64  `json:"timestamp"`
+		Source     Source `json:"source"`
 		ReplyToken string `json:"replyToken"`
 		Mode       string `json:"mode"`
 	} `json:"events"`
+}
+
+type Source struct {
+	Type   string `json:"type"`
+	UserID string `json:"userId"`
 }

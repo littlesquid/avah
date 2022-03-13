@@ -80,3 +80,5 @@ traditional structure - feature 'internal' and 'pkg' folder which encapsulate so
 	- podman network create
 	- podman network ls
 	- podman run --net=$network -dt -p 6379:6379/tcp docker.io/bitnami/redis redis-server --requirepass $password
+- docker : 
+	- docker run --name postgresql --expose 5432 -p 5432:5432 -e POSTGRESQL_USERNAME=root -e POSTGRESQL_PASSWORD=password -e POSTGRESQL_DATABASE=avah bitnami/postgresql:latest

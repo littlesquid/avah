@@ -1,8 +1,7 @@
 @startuml Avah
 "User" -> "Line Platform": send message to register Avah service
 note left "Line Platform"
-    "keyword": "register"
-    "sheet_url": "public google sheet url"
+    "keyword": "#register ${public_google_sheet_id}"
 end note
 "Line Platform" -> "Avah": send a webhook event
 note left "Avah"
@@ -47,10 +46,26 @@ note left "Avah"
 end note
 "Avah" -> "Avah": get source and sheet_url from webhook event (specific keyword) and save to DB
 note right "Avah"
-    table avah.sheet
-    id (number) : autonumber
-    source (varchar) : $source_id
-    sheet_url (varchar) : $sheet_url
+    create table task (
+    id serial primary key,
+    source_id varchar,
+    sheet_id varchar,
+    sheet_name varchar,
+    is_active smallint,
+    created_timestamp timestamp,
+    last_updated_timestamp timestamp,
+    constraint task_uk unique(source_id, sheet_id));
+
+    create table task_user(
+    id serial primary key,
+    task_id int,
+    user_id varchar
+    );
+
+    create table user_profile (
+    user_id varchar primary key,
+    user_name varchar
+    );
 end note
 
 "Google Cloud Scheduler" -> "Google Cloud Scheduler": job triggered

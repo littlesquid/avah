@@ -1,16 +1,42 @@
-package webhook
+package usecase
 
 import (
-	"avah/oauth"
+	adapter "avah/adapter/googleclient"
+	"avah/model"
 	"avah/security"
-	service "avah/service/googleapi"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/spf13/viper"
 )
+
+func Callback(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("start callback function")
+	requestBody, err := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
+	if err != nil {
+		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+	}
+
+	lineWebHookRequest := model.LineWebHookRequest{}
+	if err := json.Unmarshal(requestBody, &lineWebHookRequest); err != nil {
+		panic(err)
+	}
+
+	textMessage := strings.Split(lineWebHookRequest.Events[0].Message.Text, ":")
+	keyword := textMessage[0]
+	source := lineWebHookRequest.Events[0].Source
+
+	if keyword == "#register" {
+		ExecuteRegister(textMessage, source)
+	}
+
+}
 
 func Reply(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("this is reply function!")
@@ -23,16 +49,16 @@ func Reply(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 	}
 
-	lineWebHookRequest := LineWebHookRequest{}
+	lineWebHookRequest := model.LineWebHookRequest{}
 	if err := json.Unmarshal(requestBody, &lineWebHookRequest); err != nil {
 		panic(err)
 	}
 
 	fmt.Printf("got request: %s \n", string(requestBody[:]))
 
-	googleApiClient := oauth.GoogleApiLogin()
+	googleApiClient := adapter.GoogleApiLogin()
 
-	googleApiService := service.GoogleSheetService{}
+	googleApiService := adapter.GoogleSheetService{}
 	googleApiService.ConnectGoogleSheet(googleApiClient)
 
 	spreadsheetId := viper.GetString("sheet.id")
