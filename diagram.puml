@@ -70,9 +70,9 @@ end note
 
 "Google Cloud Scheduler" -> "Google Cloud Scheduler": job triggered
 "Google Cloud Scheduler" -> "Avah": execute web hook
-"Avah" -> "Avah": find all from avah.sheet
-loop avah.sheet result
-"Avah" -> "Avah": read data from google sheet $avah.sheet.sheet_url
+"Avah" -> "Avah": find all from avah.task
+loop avah.task result
+"Avah" -> "Avah": read data from google sheet $task.sheet_id
 "Avah" -> "Avah": mapping push message from sheet result
 "Avah" -> "Line Platform": send push message
 note right "Line Platform"
@@ -87,10 +87,6 @@ request body {
         {
             "type":"text",
             "text":"Hello, world1"
-        },
-        {
-            "type":"text",
-            "text":"Hello, world2"
         }
     ]
 }
